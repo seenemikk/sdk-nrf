@@ -52,7 +52,7 @@ extern "C" {
  *  Voice Mail, Social, Schedule, Email, News, Health and Fitness, Business and
  *  Finance, Location, Entertainment.
  */
-#define BT_ANCS_CATEGORY_ID_COUNT 12
+#define BT_ANCS_CATEGORY_ID_COUNT 13
 /** Number of iOS notification attributes: AppIdentifier, Title, Subtitle,
  *  Message, MessageSize, Date, PositiveActionLabel, NegativeActionLabel.
  */
@@ -124,7 +124,9 @@ enum bt_ancs_category_id_val {
 	/** The iOS notification belongs to the "Location" category. */
 	BT_ANCS_CATEGORY_ID_LOCATION,
 	/** The iOS notification belongs to the "Entertainment" category. */
-	BT_ANCS_CATEGORY_ID_ENTERTAINMENT
+	BT_ANCS_CATEGORY_ID_ENTERTAINMENT,
+	/** The iOS notification belongs to the "Active Call" category. */
+	BT_ANCS_CATEGORY_ID_ACTIVE_CALL,
 };
 
 /**@brief Event IDs for iOS notifications. */
