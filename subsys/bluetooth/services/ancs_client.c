@@ -413,6 +413,8 @@ static int bt_ancs_get_notif_attrs(struct bt_ancs_client *ancs_c,
 		return -EBUSY;
 	}
 
+	ancs_c->parse_info.parse_state = BT_ANCS_PARSE_STATE_COMMAND_ID;
+
 	uint32_t index = 0;
 	uint8_t *data = ancs_c->cp_data;
 
@@ -437,7 +439,7 @@ static int bt_ancs_get_notif_attrs(struct bt_ancs_client *ancs_c,
 				 * Title, Subtitle, and Message.
 				 */
 				sys_put_le16(ancs_c->ancs_notif_attr_list[attr]
-						     .attr_len,
+						     .attr_len - 1,
 					     data + index);
 				index += sizeof(uint16_t);
 			}
@@ -462,8 +464,6 @@ int bt_ancs_request_attrs(struct bt_ancs_client *ancs_c,
 	if (err) {
 		return err;
 	}
-
-	ancs_c->parse_info.parse_state = BT_ANCS_PARSE_STATE_COMMAND_ID;
 
 	return bt_ancs_get_notif_attrs(ancs_c, notif->notif_uid, func);
 }
