@@ -183,6 +183,10 @@ int bt_ancs_app_attr_request(struct bt_ancs_client *ancs_c,
 			     const uint8_t *app_id, uint32_t len,
 			     bt_ancs_write_cb func)
 {
+	if (!ancs_c || !ancs_c->conn) {
+		return -EINVAL;
+	}
+
 	if (!len) {
 		return -EINVAL;
 	}

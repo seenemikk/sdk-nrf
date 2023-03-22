@@ -373,6 +373,10 @@ static void bt_ancs_cp_write_callback(struct bt_conn *conn, uint8_t err,
 int bt_ancs_cp_write(struct bt_ancs_client *ancs_c, uint16_t len,
 		     bt_ancs_write_cb func)
 {
+	if (!ancs_c || !ancs_c->conn) {
+		return -EINVAL;
+	}
+
 	int err;
 	struct bt_gatt_write_params *write_params = &ancs_c->cp_write_params;
 
@@ -396,6 +400,10 @@ int bt_ancs_notification_action(struct bt_ancs_client *ancs_c, uint32_t uuid,
 				enum bt_ancs_action_id_values action_id,
 				bt_ancs_write_cb func)
 {
+	if (!ancs_c || !ancs_c->conn) {
+		return -EINVAL;
+	}
+
 	if (atomic_test_and_set_bit(&ancs_c->state, ANCS_CP_WRITE_PENDING)) {
 		return -EBUSY;
 	}
@@ -459,6 +467,10 @@ int bt_ancs_request_attrs(struct bt_ancs_client *ancs_c,
 			  bt_ancs_write_cb func)
 {
 	int err;
+
+	if (!ancs_c || !ancs_c->conn) {
+		return -EINVAL;
+	}
 
 	err = bt_ancs_verify_notification_format(notif);
 	if (err) {
